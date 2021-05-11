@@ -61,8 +61,8 @@ impl Editor for TestPluginEditor {
                     ui.heading("My Egui Application");
                     let mut val = state.amplitude.get();
                     if ui
-                        .add(egui::Slider::f32(&mut val, 0.0..=1.0).text("Gain"))
-                        .active
+                        .add(egui::Slider::new(&mut val, 0.0..=1.0).text("Gain"))
+                        .changed()
                     {
                         state.amplitude.set(val)
                     }

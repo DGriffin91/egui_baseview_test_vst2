@@ -10,7 +10,7 @@ name = "egui_baseview_test_vst2"
 crate-type = ["cdylib"]
 
 [dependencies]
-baseview = {git = "https://github.com/RustAudio/baseview", branch = "master"}
+baseview = {git = "https://github.com/RustAudio/baseview", rev = "d399c1275522ae75f5a82caadd904df2685c8660" }
 dirs = "3"
 log = "0.4"
 log-panics = "2"
@@ -18,5 +18,5 @@ raw-window-handle = "0.3"
 simplelog = "0.8"
 vst = "0.2"
 rtrb = "0.1.1"
-egui-baseview = {git = "https://github.com/BillyDM/egui-baseview", branch = "main"}
-egui = "0.7"
+egui-baseview = {git = "https://github.com/BillyDM/egui-baseview", rev = "c17f556fdc8b5d9278de473f6de6534c67cedf65" }
+egui = "0.12.0"
