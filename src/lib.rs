@@ -5,13 +5,12 @@ extern crate vst;
 
 use egui::CtxRef;
 
-use baseview::{Size, WindowOpenOptions, WindowScalePolicy};
+use baseview::{Size, WindowHandle, WindowOpenOptions, WindowScalePolicy};
 use vst::buffer::AudioBuffer;
 use vst::editor::Editor;
 use vst::plugin::{Category, Info, Plugin, PluginParameters};
 use vst::util::AtomicFloat;
 
-//use imgui_baseview::{HiDpiMode, ImguiWindow, RenderSettings, Settings};
 use egui_baseview::{EguiWindow, Queue, RenderSettings, Settings};
 use raw_window_handle::{HasRawWindowHandle, RawWindowHandle};
 
@@ -22,6 +21,7 @@ const WINDOW_HEIGHT: usize = 512;
 
 struct TestPluginEditor {
     params: Arc<GainEffectParameters>,
+    window_handle: Option<WindowHandle>,
     is_open: bool,
 }
 
@@ -51,7 +51,7 @@ impl Editor for TestPluginEditor {
             render_settings: RenderSettings::default(),
         };
 
-        EguiWindow::open_parented(
+        let window_handle = EguiWindow::open_parented(
             &VstParent(parent),
             settings,
             self.params.clone(),
@@ -70,6 +70,8 @@ impl Editor for TestPluginEditor {
             },
         );
 
+        self.window_handle = Some(window_handle);
+
         true
     }
 
@@ -79,6 +81,9 @@ impl Editor for TestPluginEditor {
 
     fn close(&mut self) {
         self.is_open = false;
+        if let Some(mut window_handle) = self.window_handle.take() {
+            window_handle.close();
+        }
     }
 }
 struct GainEffectParameters {
@@ -97,6 +102,7 @@ impl Default for TestPlugin {
             params: params.clone(),
             editor: Some(TestPluginEditor {
                 params: params.clone(),
+                window_handle: None,
                 is_open: false,
             }),
         }
