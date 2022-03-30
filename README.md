@@ -9,10 +9,12 @@ It implements an [egui](https://github.com/emilk/egui) ui for the [vst gain effe
 
 The plugin logs events to `~/tmp/EGUIBaseviewTest.log`.
 
-## Usage: macOS (Untested)
+## Usage: macOS (Tested on M1; need to test on previous models)
 
-- Run `scripts/macos-build-and-install.sh`
+- Run `sudo zsh scripts/macos-build-and-install.sh`
 - Start your DAW, test the plugin
+
+> For M1 users, run `sudo zsh scripts/macos-build-and-install-m1.sh`
 
 ## Usage: Windows
 
